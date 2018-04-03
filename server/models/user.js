@@ -20,7 +20,6 @@ const UserSchema = new Schema({
     password: {
         type: String,
         minlength: 6,
-        maxlength: 30,
         trim: true,
         required: [true, 'password field is required']
     // },

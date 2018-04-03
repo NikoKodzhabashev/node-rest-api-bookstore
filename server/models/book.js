@@ -4,32 +4,32 @@ const Schema = mongoose.Schema;
 // book Schema and Model
 
 const BookSchema = new Schema({
-    name: {
+    Name: {
         type: String,
         minlength: 1,
         trim: true,
         required: [true, 'Name field is required']
     },
-    author: {
+    Author: {
         type: String,
         minlength: 1,
         trim: true,
         required: [true, 'Author field is required']
     },
-    price: {
+    Price: {
         type: Number,
         minlength: 1,
         trim: true,
         maxlength: 200,
         required: [true, 'Price field is required']
     },
-    rating: {
+    Rating: {
         type: Number,
         maxlength: 5,
         trim: true,
         required: [true, 'Rating field is required']
     },
-    pictureURL: {
+    PictureURL: {
         type: String,
         trim: true,
         required: [true, 'PictureURL field is required']
