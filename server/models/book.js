@@ -4,36 +4,42 @@ const Schema = mongoose.Schema;
 // book Schema and Model
 
 const BookSchema = new Schema({
-    Name: {
+    name: {
         type: String,
         minlength: 1,
+        trim: true,
         required: [true, 'Name field is required']
     },
-    Author: {
+    author: {
         type: String,
         minlength: 1,
+        trim: true,
         required: [true, 'Author field is required']
     },
-    Price: {
+    price: {
         type: Number,
         minlength: 1,
+        trim: true,
         maxlength: 200,
         required: [true, 'Price field is required']
     },
-    Rating: {
+    rating: {
         type: Number,
         maxlength: 5,
+        trim: true,
         required: [true, 'Rating field is required']
     },
-    PictureURL: {
+    pictureURL: {
         type: String,
+        trim: true,
         required: [true, 'PictureURL field is required']
     },
-    Description: {
+    description: {
         type: String,
+        trim: true,
         minlength: 1,
         maxlength: 5000
     }
 });
-const Book = mongoose.model('book',BookSchema);
+const Book = mongoose.model('book', BookSchema);
 module.exports = Book;

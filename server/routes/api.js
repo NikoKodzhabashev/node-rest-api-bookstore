@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Book = require('../models/book');
+const User = require('../models/user');
 
 //book routes
 router.get('/books', (req, res,next) => {
@@ -38,6 +39,33 @@ router.put('/store/:id',(req,res,next)=>{
 });
 router.delete('/store/:id',(req,res,next)=>{
     res.send({type:'DELETE'})
+});
+
+//user routes
+router.post('/register',(req,res,next)=>{
+User.create(req.body)
+    .then((user)=>{
+    res.send(user);
+    }).catch((e)=>{
+        let error = 'Something bad happened, please try again!!'
+        if(e.code===11000){
+            error = 'That email is already taken, please try another!'
+            res.status(400).send(error);
+        }else{
+            res.status(400).send(error)
+        }
+    });
+});
+
+router.post('/login',(req,res,next)=>{
+    User.findOne({ email: req.body.email }, ((err, user) => {
+        if(err || !user || req.body.password !== user.password){
+            let error = 'Incorect password / email !';
+            return res.send(error);
+        }
+        req.mySession.userId = user._id;
+        res.send(user);
+    }));
 });
 
 module.exports = router;

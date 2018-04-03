@@ -11,3 +11,6 @@ const AuthorSchema = new Schema({
         required:[true,'Name field is required']
     }
 });
+
+const Author = mongoose.model('author', AuthorSchema);
+module.exports = Author;
