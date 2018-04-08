@@ -1,16 +1,17 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+
 
 // author Schema and Model
 
-const AuthorSchema = new Schema({
+const StoreSchema = new mongoose.Schema({
     Name: {
         type: String,
         minlength: 1,
         maxlength: 20,
-        required:[true,'Name field is required']
+        required:[true,'Name field is required'],
+        unique:true
     }
 });
 
-const Author = mongoose.model('author', AuthorSchema);
-module.exports = Author;
+const Store = mongoose.model('author', StoreSchema);
+module.exports = Store;
