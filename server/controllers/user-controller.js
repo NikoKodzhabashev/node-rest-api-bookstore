@@ -31,6 +31,9 @@ module.exports = {
     },
     logout: (req, res) => {
         req.logout();
+        return res.status(200).json({
+            message: 'Logout Success'
+        });
     },
     loginPost: (req, res) => {
         let reqUser = req.body
@@ -52,5 +55,14 @@ module.exports = {
             console.log("some Error");
             console.log(err);
         });
+    },
+    getUser: (req, res, next) => {
+        User.findOne({
+            username: req.params.username
+        }).then((data) => {
+            res.status(200).send(data);
+        }).catch(err => {
+            console.log(err);
+        });
     }
-};
+}

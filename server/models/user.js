@@ -17,6 +17,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: REQUIRED_VALIDATION_MESSAGE
     },
+    pictureURL: {
+        type: String,
+        required: REQUIRED_VALIDATION_MESSAGE
+    },
     salt: String,
     hashedPass: String,
     roles: [String]

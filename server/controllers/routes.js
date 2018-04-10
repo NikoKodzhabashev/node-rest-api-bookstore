@@ -19,8 +19,8 @@ router.delete('/store/:id', auth.isAuthenticated, controllers.stores.deleteStore
 
 //user routes
 router.post('/register', controllers.users.registerPost);
-router.post('/logout', controllers.users.logout);
+router.get('/logout', auth.isAuthenticated, controllers.users.logout);
 router.post('/login', controllers.users.loginPost);
-
+router.get('/user/:username', auth.isAuthenticated, controllers.users.getUser)
 
 module.exports = router;
