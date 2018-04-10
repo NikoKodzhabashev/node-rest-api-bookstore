@@ -4,7 +4,10 @@ module.exports = {
     getStores: (req, res, next) => {
         Store.find().then((data) => {
             res.status(200).send(data);
-        })
+        }).catch((err) => {
+            res.locals.globalError = err;
+            res.status(400).send(err)
+        });
     },
     getStore: (req, res, next) => {
         const reqUser = req.body;
@@ -12,6 +15,9 @@ module.exports = {
             name: reqUser.Name
         }).then((data) => {
             res.status(200).send(data);
+        }).catch((err) => {
+            res.locals.globalError = err;
+            res.status(400).send(err)
         });
     },
     postStore: (req, res, next) => {
@@ -25,6 +31,9 @@ module.exports = {
             _id: req.params.id
         }, req.body).then((data) => {
             res.status(200).send(data);
+        }).catch((err) => {
+            res.locals.globalError = err;
+            res.status(400).send(err)
         });
     },
     deleteStore: (req, res, next) => {
@@ -32,6 +41,9 @@ module.exports = {
             _id: req.params.id
         }).then((data) => {
             res.status(200).send(data);
+        }).catch((err) => {
+            res.locals.globalError = err;
+            res.status(400).send(err)
         });
     }
 }

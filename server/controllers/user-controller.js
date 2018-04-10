@@ -2,6 +2,7 @@ const encryption = require('../utils/encryption');
 const User = require('mongoose').model('User');
 
 module.exports = {
+
     registerPost: (req, res) => {
         const reqUser = req.body;
         const salt = encryption.generateSalt();
@@ -14,6 +15,7 @@ module.exports = {
             salt,
             firstName: reqUser.firstName,
             secondName: reqUser.secondName,
+            pictureURL: reqUser.pictureURL,
             roles: []
         }).then((data) => {
             req.logIn(data, (err, user) => {
@@ -26,13 +28,16 @@ module.exports = {
             });
         }).catch((err) => {
             res.locals.globalError = err;
-            res.status(400).send('This username has been already used!')
+            res.status(400).send(err)
         });
     },
     logout: (req, res) => {
         req.logout();
         return res.status(200).json({
             message: 'Logout Success'
+        }).catch((err) => {
+            res.locals.globalError = err;
+            res.status(400).send(err)
         });
     },
     loginPost: (req, res) => {

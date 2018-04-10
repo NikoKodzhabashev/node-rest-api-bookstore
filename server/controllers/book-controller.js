@@ -11,6 +11,9 @@ module.exports = {
             _id: req.params.id
         }).then((data) => {
             res.status(200).send(data);
+        }).catch((err) => {
+            res.locals.globalError = err;
+            res.status(400).send(err)
         });
     },
     postBook: (req, res, next) => {
@@ -27,6 +30,9 @@ module.exports = {
             }).then((book) => {
                 res.status(200).send(book);
             });
+        }).catch((err) => {
+            res.locals.globalError = err;
+            res.status(400).send(err)
         });
     },
     deleteBook: (req, res, next) => {
@@ -34,6 +40,9 @@ module.exports = {
             _id: req.params.id
         }).then((data) => {
             res.status(200).send(data);
+        }).catch((err) => {
+            res.locals.globalError = err;
+            res.status(400).send(err)
         });
     }
 }

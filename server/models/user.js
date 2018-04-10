@@ -15,6 +15,7 @@ const userSchema = new mongoose.Schema({
     },
     secondName: {
         type: String,
+        trim: true,
         required: REQUIRED_VALIDATION_MESSAGE
     },
     pictureURL: {
