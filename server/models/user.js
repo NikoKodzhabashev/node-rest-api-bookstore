@@ -1,40 +1,50 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-const validator = require('validator');
+const mongoose = require('mongoose')
+const encryption = require('../utils/encryption')
+const REQUIRED_VALIDATION_MESSAGE = '{PATH} is required'
 
-// user Schema and Model
-const UserSchema = new Schema({
+const userSchema = new mongoose.Schema({
 
-    email: {
+    username: {
         type: String,
-        trim: true,
-        required: [true, 'email field is required'],
-        minlength: 1,
-        unique: true,
-        validate: {
-            validator: (value) => {
-                validator.isEmail(value)
-            }
-        }
+        required: REQUIRED_VALIDATION_MESSAGE,
+        unique: true
     },
-    password: {
+    firstName: {
         type: String,
-        minlength: 6,
+        required: REQUIRED_VALIDATION_MESSAGE
+    },
+    secondName: {
+        type: String,
         trim: true,
-        required: [true, 'password field is required']
-    // },
-    // tokens: [{
-    //     access: {
-    //         type: String,
-    //         required: true
-    //     },
-    //     token: {
-    //         type: String,
-    //         required: true
-    //     }
-    // }]
+        required: REQUIRED_VALIDATION_MESSAGE
+    },
+    pictureURL: {
+        type: String,
+        required: REQUIRED_VALIDATION_MESSAGE
+    },
+    salt: String,
+    hashedPass: String,
+    roles: [String]
+});
+userSchema.method({
+    authenticate: function (password) {
+        return encryption.generateHashedPassword(this.salt, password) === this.hashedPass;
     }
 });
 
-const User = mongoose.model('user', UserSchema);
-module.exports = User;
+const User = mongoose.model('User', userSchema);
+module.exports.seedAdminUser = () => {
+    User.find().then((users) => {
+        if (users.length > 0) return
+        let salt = encryption.generateSalt();
+        let hashedPass = encryption.generateHashedPassword(salt, 'Niko');
+        User.create({
+            username: 'niko.georgiev',
+            firstName: 'Niko',
+            secondName: 'Georgiev',
+            salt: salt,
+            hashedPass: hashedPass,
+            roles: ['Admin']
+        });
+    });
+}

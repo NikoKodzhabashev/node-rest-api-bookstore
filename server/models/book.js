@@ -1,39 +1,43 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const Comments = require('./comment');
+const Likes = require('./likes');
+const REQUIRED_VALIDATION_MESSAGE = '{PATH} is required'
 
 // book Schema and Model
 
-const BookSchema = new Schema({
-    Name: {
+const BookSchema = new mongoose.Schema({
+    name: {
         type: String,
         minlength: 1,
         trim: true,
-        required: [true, 'Name field is required']
+        required: REQUIRED_VALIDATION_MESSAGE
     },
     Author: {
         type: String,
         minlength: 1,
         trim: true,
-        required: [true, 'Author field is required']
+        required: REQUIRED_VALIDATION_MESSAGE
     },
     Price: {
         type: Number,
         minlength: 1,
         trim: true,
         maxlength: 200,
-        required: [true, 'Price field is required']
+        required: REQUIRED_VALIDATION_MESSAGE
     },
     Rating: {
         type: Number,
         maxlength: 5,
         trim: true,
-        required: [true, 'Rating field is required']
+        required: REQUIRED_VALIDATION_MESSAGE
     },
     PictureURL: {
         type: String,
         trim: true,
-        required: [true, 'PictureURL field is required']
+        required: REQUIRED_VALIDATION_MESSAGE
     },
+    // comments: [Comments],
+    // likes: [Likes],
     description: {
         type: String,
         trim: true,
